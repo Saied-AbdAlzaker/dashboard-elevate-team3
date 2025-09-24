@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "primeicons/primeicons.css";
+
+:root {
+  --primary: #A6252A;
+  --secondary: #FBEAEA;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}

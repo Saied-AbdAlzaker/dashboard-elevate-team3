@@ -1,1 +1,48 @@
-<p>navbar works!</p>
+<!-- Mobile Header -->
+<div class="fixed top-0 left-0 right-0 bg-white border-t border-gray-50 shadow-sm md:hidden z-50">
+  <div class="flex items-center justify-between px-3 py-2">
+
+    <!-- Logo -->
+      <a routerLink="/dashboard">
+        <img ngSrc="/images/logo.svg" height="53" width="53"  alt="logo"/>
+      </a>
+
+    <!-- Breadcrumb -->
+    <div class="flex-grow text-center">
+      <p-breadcrumb [model]="items" (onItemClick)="home.label" />
+    </div>
+
+    <!-- User Menu -->
+    <section class="flex items-center gap-3 flex-shrink-0">
+      <!-- Avatar -->
+      <div>
+        <img ngSrc="/images/Avatar.jpg" height="40" width="40"  alt="user"/>
+      </div>
+
+      <!-- Dropdown -->
+      <div class="relative inline-block text-left">
+        <button (click)="toggleDropdown()">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+        @if(isOpen){
+          <div
+            class="origin-top-right absolute top-11 -right-2 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+            <div class="py-1">
+              <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+                <i class="fa-regular fa-user mr-2"></i> Account
+              </a>
+              <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+                <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> Logout
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- Desktop Breadcrumb -->
+<div class="hidden md:block border-b border-gray-50">
+  <p-breadcrumb [home]="home" [model]="items" (onItemClick)="home.label" />
+</div>

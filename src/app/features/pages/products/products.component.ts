@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ProductsService } from '../../../shared/services/products/products.service';
 
+
 @Component({
   selector: 'app-products',
   imports: [ButtonModule],
@@ -14,11 +15,8 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this._productsService.getAllProducts().subscribe({
-      next: (res) => {
-        console.log(res);
+      next: (res) => console.log(res)
 
-      }
-    })
+    });
   }
-
 }
