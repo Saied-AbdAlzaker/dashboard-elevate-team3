@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { CardComponent } from '../../../shared/components/ui/card/card.component';
 import { ProductsService } from '../../../shared/services/products/products.service';
 
 @Component({
   selector: 'app-products',
-  imports: [ButtonModule],
+  imports: [ButtonModule, CardComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })

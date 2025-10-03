@@ -3,10 +3,51 @@
         <div class="flex justify-between">
             <div class="w-2/12">
                 <app-sidebar></app-sidebar>
-                test
             </div>
             <div class="w-10/12">
                 <app-navbar></app-navbar>
+                <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-4">
+                    <section class="rounded-2xl bg-white shadow-sm p-4 border border-gray-100">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            @if (loading) {
+                                <div class="col-span-2 flex justify-center items-center p-8">
+                                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                                </div>
+                            } @else {
+                                <ui-stat-card 
+                                    color="red" 
+                                    icon="box" 
+                                    [value]="formatNumber(stats.totalProducts)" 
+                                    label="Total products">
+                                </ui-stat-card>
+                                <ui-stat-card 
+                                    color="blue" 
+                                    icon="orders" 
+                                    [value]="formatNumber(stats.totalOrders)" 
+                                    label="Total orders">
+                                </ui-stat-card>
+                                <ui-stat-card 
+                                    color="violet" 
+                                    icon="categories" 
+                                    [value]="formatNumber(stats.totalCategories)" 
+                                    label="Total categories">
+                                </ui-stat-card>
+                                <ui-stat-card 
+                                    color="emerald" 
+                                    icon="revenue" 
+                                    [value]="formatNumber(stats.totalRevenue)" 
+                                    currency="EGP" 
+                                    label="Total revenue">
+                                </ui-stat-card>
+                            }
+                        </div>
+                    </section>
+
+                    <section class="rounded-2xl bg-white shadow-sm p-4 border border-gray-100">
+                        <h2 class="text-lg font-semibold text-gray-900 mb-3">All Categories</h2>
+
+                    </section>
+                </div>
                 <router-outlet></router-outlet>
             </div>
         </div>
