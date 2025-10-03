@@ -10,6 +10,6 @@ export class ProductsService {
   constructor(private _http: HttpClient) { }
 
   getAllProducts(): Observable<any> {
-    return this._http.get(`https://flower.elevateegy.com/api/v1/products`);
+    return this._http.get('products');
   }
 }

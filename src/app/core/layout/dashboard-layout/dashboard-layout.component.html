@@ -8,39 +8,79 @@
                 <app-navbar></app-navbar>
                 <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-4">
                     <section class="rounded-2xl bg-white shadow-sm p-4 border border-gray-100">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            @if (loading) {
-                                <div class="col-span-2 flex justify-center items-center p-8">
-                                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                        <!-- Step 7: Loading State -->
+                        @if (isLoading) {
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="animate-pulse">
+                                    <div class="h-20 bg-gray-200 rounded-2xl"></div>
                                 </div>
-                            } @else {
+                                <div class="animate-pulse">
+                                    <div class="h-20 bg-gray-200 rounded-2xl"></div>
+                                </div>
+                                <div class="animate-pulse">
+                                    <div class="h-20 bg-gray-200 rounded-2xl"></div>
+                                </div>
+                                <div class="animate-pulse">
+                                    <div class="h-20 bg-gray-200 rounded-2xl"></div>
+                                </div>
+                            </div>
+                        }
+                        
+                        <!-- Step 8: Error State -->
+                        @else if (hasError) {
+                            <div class="text-center py-8">
+                                <div class="text-red-500 mb-4">
+                                    <i class="pi pi-exclamation-triangle text-4xl"></i>
+                                </div>
+                                <p class="text-gray-600 mb-4">{{ errorMessage }}</p>
+                                <button 
+                                    (click)="retryLoadingStats()"
+                                    class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                                    Retry
+                                </button>
+                            </div>
+                        }
+                        
+                        <!-- Step 9: Success State - Display Real Data -->
+                        @else if (dashboardStats) {
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <ui-stat-card 
                                     color="red" 
                                     icon="box" 
-                                    [value]="formatNumber(stats.totalProducts)" 
+                                    [value]="formatNumber(dashboardStats.totalProducts)" 
                                     label="Total products">
                                 </ui-stat-card>
+                                
                                 <ui-stat-card 
                                     color="blue" 
                                     icon="orders" 
-                                    [value]="formatNumber(stats.totalOrders)" 
+                                    [value]="formatNumber(dashboardStats.totalOrders)" 
                                     label="Total orders">
                                 </ui-stat-card>
+                                
                                 <ui-stat-card 
                                     color="violet" 
                                     icon="categories" 
-                                    [value]="formatNumber(stats.totalCategories)" 
+                                    [value]="formatNumber(dashboardStats.totalCategories)" 
                                     label="Total categories">
                                 </ui-stat-card>
+                                
                                 <ui-stat-card 
                                     color="emerald" 
                                     icon="revenue" 
-                                    [value]="formatNumber(stats.totalRevenue)" 
+                                    [value]="formatNumber(dashboardStats.totalRevenue)" 
                                     currency="EGP" 
                                     label="Total revenue">
                                 </ui-stat-card>
-                            }
-                        </div>
+                            </div>
+                        }
+                        
+                        <!-- Step 10: Fallback State -->
+                        @else {
+                            <div class="text-center py-8 text-gray-500">
+                                <p>No data available</p>
+                            </div>
+                        }
                     </section>
 
                     <section class="rounded-2xl bg-white shadow-sm p-4 border border-gray-100">

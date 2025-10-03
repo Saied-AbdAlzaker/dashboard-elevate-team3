@@ -4,7 +4,7 @@ import { SidebarComponent } from "../../../shared/components/ui/sidebar/sidebar.
 import { NavbarComponent } from "../../../shared/components/ui/navbar/navbar.component";
 import { RouterOutlet } from '@angular/router';
 import { StatCardComponent } from "../../../shared/components/ui/stat-card/stat-card.component";
-import { StatsService, DashboardStats } from '../../../shared/services/stats/stats.service';
+import { StatsService, DashboardStats } from "../../../shared/services/stats/stats.service";
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -13,46 +13,57 @@ import { StatsService, DashboardStats } from '../../../shared/services/stats/sta
   styleUrl: './dashboard-layout.component.scss'
 })
 export class DashboardLayoutComponent implements OnInit {
-  stats: DashboardStats = {
-    totalProducts: 0,
-    totalOrders: 0,
-    totalCategories: 0,
-    totalRevenue: 0
-  };
+  
+  // Step 3: Define component properties for stats data
+  dashboardStats: DashboardStats | null = null;
+  isLoading = true;
+  hasError = false;
+  errorMessage = '';
 
-  loading = true;
-
-  constructor(private statsService: StatsService) {}
+  constructor(private _statsService: StatsService) {}
 
   ngOnInit(): void {
-    this.loadStats();
+    this.loadDashboardStats();
   }
 
-  loadStats(): void {
-    this.loading = true;
-    
-    // Try the dedicated stats endpoint first
-    this.statsService.getDashboardStats().subscribe({
-      next: (stats) => {
-        this.stats = stats;
-        this.loading = false;
+  /**
+   * Step 4: Method to load dashboard statistics
+   * This method handles the API call and state management
+   */
+  private loadDashboardStats(): void {
+    this.isLoading = true;
+    this.hasError = false;
+    this.errorMessage = '';
+
+    // Try the single statistics endpoint first, fallback to individual calls
+    this._statsService.getStatistics().subscribe({
+      next: (stats: DashboardStats | null) => {
+        console.log('Statistics loaded successfully:', stats);
+        this.dashboardStats = stats;
+        this.isLoading = false;
+        this.hasError = false;
       },
-      error: () => {
-        // Fallback to calculating stats from products
-        this.statsService.calculateStatsFromProducts().subscribe({
-          next: (stats) => {
-            this.stats = stats;
-            this.loading = false;
-          },
-          error: (error) => {
-            console.error('Failed to load stats:', error);
-            this.loading = false;
-          }
-        });
+      error: (err) => {
+        this.dashboardStats = null;
+        this.isLoading = false;
+        this.hasError = true;
+        this.errorMessage = 'Failed to load statistics.';
+        console.error('Statistics load error:', err); 
       }
     });
   }
 
+
+  /**
+   * Step 5: Method to retry loading stats (for error recovery)
+   */
+  retryLoadingStats(): void {
+    this.loadDashboardStats();
+  }
+
+  /**
+   * Step 6: Helper methods for formatting data
+   */
   formatNumber(value: number): string {
     return value.toLocaleString();
   }
