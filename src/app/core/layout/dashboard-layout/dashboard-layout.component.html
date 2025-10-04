@@ -68,8 +68,11 @@
                                 <ui-stat-card 
                                     color="emerald" 
                                     icon="revenue" 
-                                    [value]="formatNumber(dashboardStats.totalRevenue)" 
+                                    [value]="dashboardStats.totalRevenue" 
                                     currency="EGP" 
+                                    currencyCode="EGP"
+                                    display="symbol"
+                                    digitsInfo="1.2-2"
                                     label="Total revenue">
                                 </ui-stat-card>
                             </div>

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { PrimeIcons } from 'primeng/api';
 
 type StatColor = 'red' | 'blue' | 'violet' | 'emerald';
@@ -7,7 +8,7 @@ type StatColor = 'red' | 'blue' | 'violet' | 'emerald';
 @Component({
   selector: 'ui-stat-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CurrencyPipe],
   templateUrl: './stat-card.component.html',
   styleUrls: ['./stat-card.component.scss'],
 })
@@ -15,6 +16,7 @@ export class StatCardComponent {
   @Input() value: string | number = '';
   @Input() label: string = '';
   @Input() currency?: string;
+  @Input() currencyCode: string = 'USD';
   @Input() color: StatColor = 'blue';
   @Input() icon: 'box' | 'orders' | 'categories' | 'revenue' = 'box';
 
@@ -27,7 +29,7 @@ export class StatCardComponent {
       categories: PrimeIcons.TAGS,
       revenue: PrimeIcons.DOLLAR,
     };
-    return iconMap[this.icon] || PrimeIcons.BOX;
+    return iconMap[this.icon];
   }
 
   get bgClass(): string {
@@ -60,5 +62,4 @@ export class StatCardComponent {
     return map[this.color];
   }
 }
-
 

@@ -5,7 +5,8 @@
     </div>
     <div>
       <div class="text-2xl font-semibold" [ngClass]="valueClass">
-        {{ value }} @if (currency) { <span class="text-xs font-medium">{{ currency }}</span> }
+          {{ value | currency:currencyCode}}
+
       </div>
       <div class="text-sm opacity-70" [ngClass]="valueClass">{{ label }}</div>
     </div>
