@@ -18,11 +18,11 @@ export class NavbarComponent {
   isOpen: boolean = false;
 
 
-  private readonly breadcrumbSignal: BreadcrumbValuesService = inject(BreadcrumbValuesService);
+  private readonly breadcrumbValuesService: BreadcrumbValuesService = inject(BreadcrumbValuesService);
 
-  constructor(private breadcrumbService: BreadcrumbValuesService) {
+  constructor() {
     effect(() => {
-      this.items = this.breadcrumbService.BreadcrumbSignal();
+      this.items = this.breadcrumbValuesService.BreadcrumbSignal();
     });
   }
 
@@ -32,12 +32,11 @@ export class NavbarComponent {
 
   // If The User Clicked Outside
   @HostListener('document:click', ['$event'])
-  clickOutside(event: Event) {
+  onDocumentClick(event: Event): void {
     const target = event.target as HTMLElement;
-    if (!target.closest('.relative')) {
+
+    if (!target.closest('.dropdown-container')) {
       this.isOpen = false;
     }
   }
-
-
 }

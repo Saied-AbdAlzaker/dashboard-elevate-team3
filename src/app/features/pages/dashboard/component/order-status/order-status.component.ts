@@ -11,7 +11,7 @@ import {ordersByStatus, OrderStatus} from './model/order-status';
   templateUrl: './order-status.component.html',
   styleUrl: './order-status.component.scss'
 })
-class OrderStatusComponent implements OnInit, OnDestroy {
+export default class OrderStatusComponent implements OnInit, OnDestroy {
 
   private readonly orderStatusService: OrderStatusService = inject(OrderStatusService);
   private subscription!: Subscription;
@@ -28,22 +28,13 @@ class OrderStatusComponent implements OnInit, OnDestroy {
     this.getOrderStatus();
   }
 
-  /*ngAfterContentInit(): void {
-
-  }*/
-
   getOrderStatus(): void {
     this.subscription = this.orderStatusService.GetOrderStatus().subscribe({
       /*next: res => {
-
         this.ordersByStatus = res.statistics.ordersByStatus;
-
         this.filteredOrders = this.ordersByStatus.filter(ordersByStatus =>
           ["completed", "inProgress", "canceled"].includes(ordersByStatus._id ?? "")
         );
-
-
-
         console.log(this.filteredOrders);
       },*/
 
@@ -56,6 +47,8 @@ class OrderStatusComponent implements OnInit, OnDestroy {
         this.canceled = data.find(o => o._id === "canceled") || { _id: "canceled", count: 0 };
 
         this.totalOrders = (this.completed?.count || 0) + (this.inProgress?.count || 0) + (this.canceled?.count || 0);
+
+        console.log("Data", data);
         this.chart();
       },
       error: error => {
@@ -95,4 +88,4 @@ class OrderStatusComponent implements OnInit, OnDestroy {
   }
 }
 
-export default OrderStatusComponent
+// export default OrderStatusComponent

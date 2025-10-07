@@ -17,12 +17,12 @@ export class BreadcrumbValuesService {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         let current = this.createBreadcrumbs(this.activatedRoute.root);
-        let previous = this.BreadcrumbSignal();
+        /*let previous = this.BreadcrumbSignal();
         const merged = [...previous, ...current].filter((v, i, arr) =>
           arr.findIndex(x => x.routerLink === v.routerLink) === i
-        );
+        );*/
 
-        this.BreadcrumbSignal.set(merged);
+        this.BreadcrumbSignal.set(current);
       });
   }
 

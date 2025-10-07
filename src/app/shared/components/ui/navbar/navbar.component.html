@@ -9,7 +9,7 @@
 
     <!-- Breadcrumb -->
     <div class="flex-grow text-center">
-      <p-breadcrumb [model]="items" (onItemClick)="home.label" />
+      <p-breadcrumb [model]="items" />
     </div>
 
     <!-- User Menu -->
@@ -19,12 +19,14 @@
         <img ngSrc="/images/Avatar.jpg" height="40" width="40"  alt="user"/>
       </div>
 
+
       <!-- Dropdown -->
-      <div class="relative inline-block text-left">
+      <div class="dropdown-container relative inline-block text-left">
         <button (click)="toggleDropdown()">
           <i class="fa-solid fa-bars text-lg"></i>
         </button>
-        @if(isOpen){
+
+        @if (isOpen) {
           <div
             class="origin-top-right absolute top-11 -right-2 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
             <div class="py-1">
@@ -38,6 +40,7 @@
           </div>
         }
       </div>
+
     </section>
   </div>
 </div>
