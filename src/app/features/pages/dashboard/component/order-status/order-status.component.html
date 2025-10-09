@@ -18,32 +18,48 @@
 
   <!-- Statistics Information -->
   <div class="mt-8">
-    <!-- Completed -->
-    <div class="flex items-center justify-between py-2">
-      <div class="flex gap-3 items-center">
-        <div class="w-3 h-3 rounded-full bg-green-600"></div>
-        <p>Complete</p>
+    @for (stat of statistics; track stat.label) {
+      <div class="flex items-center justify-between py-2">
+        <div class="flex gap-3 items-center">
+          <div class="w-3 h-3 rounded-full" [ngClass]="stat.color"></div>
+          <p>{{ stat.label }}</p>
+        </div>
+        <p>
+          {{ stat.count }} ({{ getPercentage(stat.count || 0) }})
+        </p>
       </div>
-      <p>{{ completed?.count }} ({{ getPercentage(completed?.count || 0) }})</p>
-    </div>
-
-    <!-- In Progress -->
-    <div class="flex items-center justify-between py-2">
-      <div class="flex gap-3 items-center">
-        <div class="w-3 h-3 rounded-full bg-blue-500"></div>
-        <p>In Progress</p>
-      </div>
-      <p>{{ inProgress?.count }} ({{ getPercentage(inProgress?.count || 0) }})</p>
-    </div>
-
-    <!-- Canceled -->
-    <div class="flex items-center justify-between py-2">
-      <div class="flex gap-3 items-center">
-        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-        <p>Canceled</p>
-      </div>
-      <p>{{ canceled?.count }} ({{ getPercentage(canceled?.count || 0) }})</p>
-    </div>
+    }
   </div>
+
+
+  <!--   Statistics Information -->
+<!--  <div class="mt-8">-->
+<!--    &lt;!&ndash; Completed &ndash;&gt;-->
+<!--    <div class="flex items-center justify-between py-2">-->
+<!--      <div class="flex gap-3 items-center">-->
+<!--        <div class="w-3 h-3 rounded-full bg-green-600"></div>-->
+<!--        <p>Complete</p>-->
+<!--      </div>-->
+<!--      <p>{{ completed?.count }} ({{ getPercentage(completed?.count || 0) }})</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; In Progress &ndash;&gt;-->
+<!--    <div class="flex items-center justify-between py-2">-->
+<!--      <div class="flex gap-3 items-center">-->
+<!--        <div class="w-3 h-3 rounded-full bg-blue-500"></div>-->
+<!--        <p>In Progress</p>-->
+<!--      </div>-->
+<!--      <p>{{ inProgress?.count }} ({{ getPercentage(inProgress?.count || 0) }})</p>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Canceled &ndash;&gt;-->
+<!--    <div class="flex items-center justify-between py-2">-->
+<!--      <div class="flex gap-3 items-center">-->
+<!--        <div class="w-3 h-3 rounded-full bg-red-500"></div>-->
+<!--        <p>Canceled</p>-->
+<!--      </div>-->
+<!--      <p>{{ canceled?.count }} ({{ getPercentage(canceled?.count || 0) }})</p>-->
+<!--    </div>-->
+<!--  </div>-->
 </section>
 

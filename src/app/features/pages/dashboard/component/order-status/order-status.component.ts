@@ -3,11 +3,15 @@ import { Chart } from 'chart.js/auto';
 import {OrderStatusService} from './service/order-status.service';
 import { Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {ordersByStatus, OrderStatus} from './model/order-status';
+import {data} from 'autoprefixer';
+import {NgClass} from '@angular/common';
 
 
 @Component({
   selector: 'app-order-status',
-  imports: [],
+  imports: [
+    NgClass
+  ],
   templateUrl: './order-status.component.html',
   styleUrl: './order-status.component.scss'
 })
@@ -23,6 +27,25 @@ export default class OrderStatusComponent implements OnInit, OnDestroy {
   inProgress: ordersByStatus | null = null;
   canceled: ordersByStatus | null = null;
   totalOrders: number = 0;
+
+  statistics = [
+    {
+      label: 'Complete',
+      color: 'bg-green-600',
+      count: this.completed?.count || 0,
+    },
+    {
+      label: 'In Progress',
+      color: 'bg-blue-500',
+      count: this.inProgress?.count || 0,
+    },
+    {
+      label: 'Canceled',
+      color: 'bg-red-500',
+      count: this.canceled?.count || 0,
+    },
+  ];
+
 
   ngOnInit(): void {
     this.getOrderStatus();
@@ -45,6 +68,12 @@ export default class OrderStatusComponent implements OnInit, OnDestroy {
         this.completed = data.find(o => o._id === "completed") || { _id: "completed", count: 0 };
         this.inProgress = data.find(o => o._id === "inProgress") || { _id: "inProgress", count: 0 };
         this.canceled = data.find(o => o._id === "canceled") || { _id: "canceled", count: 0 };
+
+        this.statistics = [
+          { label: 'Complete', color: 'bg-green-600', count: this.completed?.count || 0 },
+          { label: 'In Progress', color: 'bg-blue-500', count: this.inProgress?.count || 0 },
+          { label: 'Canceled', color: 'bg-red-500', count: this.canceled?.count || 0 },
+        ];
 
         this.totalOrders = (this.completed?.count || 0) + (this.inProgress?.count || 0) + (this.canceled?.count || 0);
 
@@ -86,6 +115,8 @@ export default class OrderStatusComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
+  protected readonly data = data;
 }
 
 // export default OrderStatusComponent
