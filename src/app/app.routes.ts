@@ -12,6 +12,18 @@ export const routes: Routes = [
           import('./features/pages/products/products.component').then
           ((c) => c.ProductsComponent),
       },
+      { path: 'categories', title: 'Categories', data: { breadcrumb: 'Categories' }, loadComponent: () =>
+          import('./features/pages/categories/categories.component').then
+          ((c) => c.CategoriesComponent),
+      },
+      { path: 'addCategory', title: 'Add Category', data: { breadcrumb: 'Add Category' }, loadComponent: () =>
+          import('./features/pages/categories/add-category/add-category.component').then
+          ((c) => c.AddCategoryComponent),
+      },
+      { path: 'editCategory/:id', title: 'Edit Category', data: { breadcrumb: 'Edit Category' }, loadComponent: () =>
+          import('./features/pages/categories/add-category/add-category.component').then
+          ((c) => c.AddCategoryComponent),
+      },
     ],
   },
 ];
