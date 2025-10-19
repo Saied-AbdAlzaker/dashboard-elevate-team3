@@ -1,13 +1,14 @@
-<section>
-    <div class="w-[95%] mx-auto">
-        <div class="flex justify-between">
-            <div class="w-2/12">
-                <app-sidebar></app-sidebar>
-            </div>
-            <div class="w-10/12">
-                <app-navbar></app-navbar>
-                <router-outlet></router-outlet>
-            </div>
-        </div>
-    </div>
+<section class="grid grid-cols-12 min-h-screen">
+  <!-- Sidebar -->
+  <aside class="col-span-12 md:col-span-3 lg:col-span-3 xl:col-span-2 bg-white shadow">
+    <app-sidebar></app-sidebar>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-10 flex flex-col">
+    <app-navbar></app-navbar>
+    <main class="flex-1 p-4 bg-gray-50">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </section>

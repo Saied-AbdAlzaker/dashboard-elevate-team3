@@ -1,0 +1,30 @@
+<p-table [value]="topSellingProducts" [size]="'small'">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Top Selling Products</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td>
+        <div [class]="getProductBg(product)">
+          <div>
+            <span class="font-medium">{{ product.title }}</span>
+            <span class="text-sm ms-2">({{ product.price | number:'1.0-0' }} EGP)</span>
+          </div>
+          <div>
+            <span class="font-semibold ms-2">{{ product.sold }}</span>
+            <span class="text-sm">Sales</span>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+@if (!topSellingProducts || topSellingProducts.length === 0) {
+  <div class="text-center py-2 text-gray-500 font-mono text-l font-bold">
+    No Data
+  </div>
+}

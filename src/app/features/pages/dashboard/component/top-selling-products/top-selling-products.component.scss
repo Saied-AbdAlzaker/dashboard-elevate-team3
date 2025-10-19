@@ -1,0 +1,31 @@
+:host ::ng-deep .p-datatable {
+  border: none !important;
+  border-radius: 0.75rem; /* rounded-3xl */
+  overflow: hidden; /* يخلي الـ rounded يبان */
+}
+
+:host ::ng-deep .p-datatable-wrapper {
+  border: none !important;
+  border-radius: inherit; /* ياخد نفس اللي فوق */
+  overflow: hidden;
+}
+
+:host ::ng-deep .p-datatable-tbody > tr > td {
+  border: none !important;
+}
+
+:host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr > th {
+  font-size: 1.25rem;      /* text-xl */
+  font-weight: 600;        /* font-semibold */
+  padding: 1.5rem 1.5rem;    /* py-6 px-6 */
+  text-align: left;
+  border: none !important;
+}
+
+:host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr:first-child > th:first-child {
+  border-top-left-radius: 0.75rem; /* rounded-tl-xl */
+}
+
+:host ::ng-deep .p-datatable.p-datatable-sm .p-datatable-thead > tr:first-child > th:last-child {
+  border-top-right-radius: 0.75rem; /* rounded-tr-xl */
+}

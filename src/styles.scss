@@ -22,3 +22,13 @@ tr:hover {
     color: #fff !important;
     border-radius: 10px !important;
 }
+@import "primeicons/primeicons.css";
+
+:root {
+  --primary: #A6252A;
+  --secondary: #FBEAEA;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}

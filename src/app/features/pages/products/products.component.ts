@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
 import { SearchPipe } from '../../../shared/pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
 
+
 @Component({
   selector: 'app-products',
   imports: [TableModule, RouterLink, ButtonModule, SearchPipe, FormsModule,
