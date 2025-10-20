@@ -165,10 +165,10 @@ export class AddEditProductComponent implements OnInit, OnDestroy {
       });
     }
 
-    // if (this.productsForm.invalid) {
-    //   this.productsForm.markAllAsTouched();
-    //   return;
-    // }
+    if (this.productsForm.invalid) {
+      this.productsForm.markAllAsTouched();
+      return;
+    }
 
     if (this.productId) {
       this._productsService.updateProduct(this.productId, myData).subscribe({
