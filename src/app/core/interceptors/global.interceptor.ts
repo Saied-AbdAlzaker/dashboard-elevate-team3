@@ -1,24 +1,37 @@
-import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { inject, PLATFORM_ID } from '@angular/core';
+import {TOKEN} from '../../../environments/TOKEN';
 import { isPlatformBrowser } from '@angular/common';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 export const globalInterceptor: HttpInterceptorFn = (req, next) => {
 
-  let platform = inject(PLATFORM_ID);
-
   const baseUrl: string = environment.apiUrl;
-  const token = localStorage.getItem('token') || '';
 
-  if (isPlatformBrowser(platform)) {
-    if (token !== null) {
+  // JUST TEST
+  const TokenUser = TOKEN.User;
+  const TokenAdmin = TOKEN.Admin;
+
+  let PLATFORM = inject(PLATFORM_ID);
+
+  if (isPlatformBrowser(PLATFORM)) {
+    const token = localStorage.getItem('token') || '';
+
+    req = req.clone({
+      url: `${baseUrl}${req.url}`,
+      setHeaders: {
+        Authorization: `Bearer ${TokenUser}`
+      }
+    });
+
+    /*if (token !== null) {
       req = req.clone({
         url: `${baseUrl}${req.url}`,
         setHeaders: {
-          token: `${token}`
+          Authorization: `Bearer ${Token}`
         }
       });
-    }
+    }*/
   }
 
   return next(req);
