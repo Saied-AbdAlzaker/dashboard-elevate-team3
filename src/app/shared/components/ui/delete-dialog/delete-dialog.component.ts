@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProductsService } from '../../../services/products/products.service';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -12,6 +12,8 @@ import { ToastModule } from "primeng/toast";
   providers: [MessageService, DialogService]
 })
 export class DeleteDialogComponent implements OnInit {
+  
+   @Output() deleteConfirmed = new EventEmitter<string>();
 
   productId!: string;
 
@@ -23,15 +25,9 @@ export class DeleteDialogComponent implements OnInit {
     this.productId = products._id;
   }
 
-  deleteProduct(id: string) {
-    this._productsService.deleteProduct(id).subscribe({
-      next: (res) => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product deleted successfully', life: 1000 });
-        this.ref.close(true);
-      }, error: (err) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: err.message, life: 1000 });
-      }
-    })
+  deleteProduct() {
+    this.deleteConfirmed.emit(this.productId);
+    this.closeDialog();
   }
 
   closeDialog() {

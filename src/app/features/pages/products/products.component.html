@@ -1,9 +1,9 @@
 <section>
     <div class="flex justify-between items-center my-3">
         <h2 class="font-semibold">All Products</h2>
-        <a routerLink="/add-product" class="bg-danger rounded text-white p-2">
+        <a routerLink="/add-product" class="bg-bg-danger rounded text-white p-2">
             <i class="pi pi-plus md:me-2" style="font-size: 1rem"></i>
-            <span class="hidden md:inline-block"> Add a newproduct</span>
+            <span class="hidden md:inline-block"> Add a new product</span>
         </a>
     </div>
     <label for="Search">
@@ -22,12 +22,12 @@
             [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
             <ng-template #header>
                 <tr>
-                    <th style="width:25%">Name</th>
-                    <th style="width:25%">Price</th>
-                    <th style="width:25%">Stock</th>
-                    <th style="width:25%">Sales</th>
-                    <th style="width:25%">Ratings</th>
-                    <th style="width:25%"></th>
+                    <th style="width:20%">Name</th>
+                    <th style="width:15%">Price</th>
+                    <th style="width:15%">Stock</th>
+                    <th style="width:15%">Sales</th>
+                    <th style="width:15%">Ratings</th>
+                    <th style="width:20%"></th>
                 </tr>
             </ng-template>
             <ng-template #body let-product>

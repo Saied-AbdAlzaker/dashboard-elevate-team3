@@ -11,7 +11,6 @@ import { Subscription } from 'rxjs';
 import { FileUpload } from 'primeng/fileupload';
 import { DropdownModule } from 'primeng/dropdown';
 import { ValidationProductComponent } from "../../../shared/components/ui/validation-product/validation-product.component";
-import { NgIf } from '@angular/common';
 import { Product } from '../../../shared/interfaces/products/products';
 import { Category } from '../../../shared/interfaces/ctegories/categories';
 import { Occasion } from '../../../shared/interfaces/occasions/occasions';
@@ -23,7 +22,7 @@ import { CarouselModule } from 'primeng/carousel';
 @Component({
   selector: 'app-add-edit-product',
   imports: [FormsModule, InputTextModule, TextareaModule, DropdownModule, Dialog, Image, CarouselModule,
-    InputNumber, ReactiveFormsModule, ToastModule, FileUpload, ValidationProductComponent, NgIf, ButtonModule],
+    InputNumber, ReactiveFormsModule, ToastModule, FileUpload, ValidationProductComponent, ButtonModule],
   templateUrl: './add-edit-product.component.html',
   styleUrl: './add-edit-product.component.scss',
   providers: [MessageService]
@@ -35,7 +34,9 @@ export class AddEditProductComponent implements OnInit, OnDestroy {
   productsList: Product[] = [];
   categoryList: Category[] = [];
   occasionsList: Occasion[] = [];
-  subscription: Subscription = new Subscription;
+  subscriptionProducts: Subscription = new Subscription;
+  subscriptionCategories: Subscription = new Subscription;
+  subscriptionOccasions: Subscription = new Subscription;
   coverFile!: File;
   imagesFile: File[] = [];
   // dialog
@@ -107,21 +108,21 @@ export class AddEditProductComponent implements OnInit, OnDestroy {
   }
 
   getAllProducts() {
-    this.subscription = this._productsService.allProducts().subscribe({
+    this.subscriptionProducts = this._productsService.allProducts().subscribe({
       next: (res) => {
         this.productsList = res.products;
       }
     });
   }
   getAllCategories() {
-    this.subscription = this._productsService.allCategories().subscribe({
+    this.subscriptionCategories = this._productsService.allCategories().subscribe({
       next: (res) => {
         this.categoryList = res.categories;
       }
     });
   }
   getAllOccasions() {
-    this.subscription = this._productsService.allOccasions().subscribe({
+    this.subscriptionOccasions = this._productsService.allOccasions().subscribe({
       next: (res) => {
         this.occasionsList = res.occasions;
       }
@@ -164,10 +165,10 @@ export class AddEditProductComponent implements OnInit, OnDestroy {
       });
     }
 
-    if (this.productsForm.invalid) {
-      this.productsForm.markAllAsTouched();
-      return;
-    }
+    // if (this.productsForm.invalid) {
+    //   this.productsForm.markAllAsTouched();
+    //   return;
+    // }
 
     if (this.productId) {
       this._productsService.updateProduct(this.productId, myData).subscribe({
@@ -221,7 +222,9 @@ export class AddEditProductComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptionProducts.unsubscribe();
+    this.subscriptionCategories.unsubscribe();
+    this.subscriptionOccasions.unsubscribe();
   }
 
 }
