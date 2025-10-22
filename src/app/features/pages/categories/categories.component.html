@@ -9,10 +9,10 @@
 <section class="bg-white rounded-2xl p-6">
   <div class="mb-4 input-search border border-slate-300 bg-white text-zinc-400 rounded-xl p-4 w-full  flex ">
     <span class="pe-4"><i class="fa-solid fa-magnifying-glass"></i></span>
-    <input type="text" placeholder="Search..." class="w-full text-zinc-400 focus:outline-none bg-white" [(ngModel)]="textSearch" (keyup)="searchInput()">
+    <input type="text" placeholder="Search..." class="w-full text-zinc-400 focus:outline-none bg-white" [(ngModel)]="textSearch" >
   </div>
 
-  <p-table  [value]="categories"  [paginator]="true" [rows]="5"
+  <p-table  [value]="categories| filterCategory:textSearch"  [paginator]="true" [rows]="5"
     [tableStyle]="{ 'min-width': '50rem' }"
     [rowsPerPageOptions]="[5, 10, 20]"
     [tableStyle]="{ 'min-width': '100%' }"
@@ -27,7 +27,7 @@
     <ng-template #body let-category>
         <tr>
             <td>{{ category.name }}</td>
-            <td>{{ category.Products }}products</td>
+            <td>{{ category.productsCount }} Products</td>
             <td>
               <div class="flex space-x-2 relative">
                 <!-- <div class="md:hidden">
@@ -47,7 +47,9 @@
                   Edit
                 </a>
                 <button class="bg-red-600/[.1] text-red-600  p-2 rounded-md	hover:bg-red-600 hover:text-white"
-                (click)="deleteCategory(category._id)">
+                (click)="deleteCategory($event, category._id)"
+
+                >
                   <i class="fa-regular fa-trash-can"></i>
                   Delete
                 </button>
@@ -59,3 +61,4 @@
 </p-table>
 </section>
    <p-toast />
+<p-confirmdialog />

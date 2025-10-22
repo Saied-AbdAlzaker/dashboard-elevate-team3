@@ -4,10 +4,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ɵInternalForm
 import { Toast } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
+import { ButtonComponent } from '../../../../shared/components/ui/button/button.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-category',
-  imports: [ɵInternalFormsSharedModule,ReactiveFormsModule,Toast],
+  imports: [ɵInternalFormsSharedModule,ReactiveFormsModule,Toast,ButtonComponent],
   templateUrl: './add-category.component.html',
   styleUrl: './add-category.component.scss',
   providers: [MessageService]
@@ -21,6 +23,11 @@ export class AddCategoryComponent implements OnInit{
 
   buttonStatus:boolean=false
 
+  /* Valuable for  Subscription*/
+  loadCategorySubscription!: Subscription;
+  addCategorySubscription!: Subscription;
+  editCategorySubscription!: Subscription;
+
   constructor(  private _categoriesService:CategoriesService,
                 private fb:FormBuilder,
                 private _activatedRoute: ActivatedRoute,
@@ -33,11 +40,15 @@ export class AddCategoryComponent implements OnInit{
 
   }
   ngOnInit(): void {
+    this.getDateOfCategory();
+  }
+  /* Load Data For Edit Category */
+  getDateOfCategory(){
     this.categoryId = this._activatedRoute.snapshot.paramMap.get('id');
     console.log(this.categoryId);
     if(this.categoryId ) {
       this.buttonStatus=true
-      this._categoriesService.getCategory(this.categoryId).subscribe({
+      this.loadCategorySubscription = this._categoriesService.getCategory(this.categoryId).subscribe({
         next:(res)=>{
           console.log(res);
           this.categoryForm.get('name')?.setValue(res.category.name)
@@ -53,16 +64,18 @@ export class AddCategoryComponent implements OnInit{
     }
   }
 
+  /* Add Category Or Edit Category */
   AddCategory() {
     if(!this.categoryId) {
+      /* Add Category */
       if(this.categoryForm.valid) {
         const formData = new FormData();
         formData.append('name', this.categoryForm.get('name')?.value);
         formData.append('image',this.categoryForm.get('image')?.value);
-        this._categoriesService.addCategories(formData).subscribe({
+        this.addCategorySubscription = this._categoriesService.addCategories(formData).subscribe({
           next:(res)=> {
             console.log(res);
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: `${res.message} added ${res.category.name}`  });
             this.categoryForm.reset()
           },
           error:(err) => {
@@ -74,11 +87,12 @@ export class AddCategoryComponent implements OnInit{
 
     }
     } else {
+      /* Edit Category */
       if(this.categoryForm.valid) {
         const formData = new FormData();
         formData.append('name', this.categoryForm.get('name')?.value);
         formData.append('image',this.categoryForm.get('image')?.value);
-        this._categoriesService.updateCategory(this.categoryId,formData).subscribe({
+        this.editCategorySubscription = this._categoriesService.updateCategory(this.categoryId,formData).subscribe({
            next:(res)=> {
             console.log(res);
            this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
@@ -101,6 +115,19 @@ export class AddCategoryComponent implements OnInit{
 
       this.categoryForm.patchValue({image: file});
       this.categoryForm.get('image')?.updateValueAndValidity();
+    }
+  }
+
+
+  ngOnDestroy(): void {
+    if(this.loadCategorySubscription){
+      this.loadCategorySubscription.unsubscribe();
+    }
+    if(this.addCategorySubscription){
+      this.addCategorySubscription.unsubscribe();
+    }
+    if(this.editCategorySubscription){
+      this.editCategorySubscription.unsubscribe();
     }
   }
 }

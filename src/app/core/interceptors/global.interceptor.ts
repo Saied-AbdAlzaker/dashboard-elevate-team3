@@ -17,7 +17,6 @@ export const globalInterceptor: HttpInterceptorFn = (req, next) => {
   const normalUserEndpoints :string[]=[ApiEndPoint.LOW_STOCK_PRODUCTS,ApiEndPoint.STATISTICS_ORDERS,ApiEndPoint.TOP_SELLING_PRODUCTS];
   console.log(req.url);
   if(normalUserEndpoints.includes(req.url)){
-
     req = req.clone({
       url: `${baseUrl}${req.url}`,
       setHeaders: {
@@ -25,6 +24,7 @@ export const globalInterceptor: HttpInterceptorFn = (req, next) => {
       }
     });
   }
+
   if(req.url.includes('categories') ) {
      req = req.clone({
       url: `${baseUrl}${req.url}`,

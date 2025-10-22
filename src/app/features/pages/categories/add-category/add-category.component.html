@@ -6,8 +6,12 @@
 <section class="bg-white rounded-2xl p-6">
     <form class="flex flex-col" [formGroup]="categoryForm" (ngSubmit)="AddCategory()">
       <div class="w-10/12 mb-4">
-        <label for="" class="text-zine-800 mb-2 block">Name <span class="text-red-700">*</span></label>
-        <input type="text" placeholder="Enter category name" formControlName="name" class="w-full text-zinc-400 focus:outline-none bg-white p-4 border border-slate-300 rounded-xl">
+        <label for="name" class="text-zine-800 mb-2 block">Name <span class="text-red-700">*</span></label>
+        <input type="text" placeholder="Enter category name" formControlName="name" id="name"
+        class="w-full text-zinc-400 focus:outline-none bg-white p-4 border border-slate-300 rounded-xl">
+        @if(categoryForm.get('name')?.errors && categoryForm.get('name')?.touched){
+          <p class="text-red-500">Please add a title to the category. </p>
+        }
       </div>
       <div class="w-10/12 mb-4">
         <label for="" class="text-zine-800 mb-2 block">Category image <span class="text-red-700">*</span> </label>
@@ -18,14 +22,21 @@
         <input type="file" #fileImage  class="w-full text-zinc-400 focus:outline-none bg-white p-4 border border-slate-300 rounded-xl hidden" accept="image/png"
           (change)="onImageSelected($event)">
       </div>
-      <button class="bg-[var(--primary)] text-white p-3  rounded-xl  cursor-pointer w-10/12 disabled:bg-red-300 disabled:cursor-not-allowed" type="submit" [disabled]="categoryForm.invalid">
 
         @if(buttonStatus) {
-          <span>Edit Category</span>
+          <app-button
+              [typeButton]="'submit'"
+              [label]="'Edit Category'"
+              [disabledAction]="categoryForm.invalid">
+            </app-button>
+
         } @else {
-          <span>Add Category</span>
+          <app-button
+              [typeButton]="'submit'"
+              [label]="'Add Category'"
+              [disabledAction]="categoryForm.invalid">
+            </app-button>
         }
-      </button>
     </form>
 </section>
     <p-toast />
