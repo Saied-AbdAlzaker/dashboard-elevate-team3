@@ -1,13 +1,13 @@
-<section class="grid grid-cols-12 min-h-screen">
+<section class="flex ">
   <!-- Sidebar -->
-  <aside class="col-span-12 md:col-span-3 lg:col-span-3 xl:col-span-2 bg-white shadow">
-    <app-sidebar></app-sidebar>
-  </aside>
+  <!-- <aside class="col-span-12 md:col-span-3 lg:col-span-3 xl:col-span-2 bg-white shadow"> -->
+    <app-sidebar class="md:w-3/12"></app-sidebar>
+
 
   <!-- Main Content -->
-  <div class="col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-10 flex flex-col">
+  <div class="w-full ">
     <app-navbar></app-navbar>
-    <main class="flex-1 p-4 bg-gray-50">
+    <main class="flex-1 p-4 bg-gray-50 " style="height: calc(100vh  - 58px);">
       <router-outlet></router-outlet>
     </main>
   </div>

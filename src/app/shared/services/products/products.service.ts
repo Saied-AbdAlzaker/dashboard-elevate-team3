@@ -13,36 +13,31 @@ export class ProductsService {
   token: string = localStorage.getItem('token') || '';
   constructor(private _http: HttpClient) { }
 
+
   allProducts(): Observable<IProducts> {
-    return this._http.get<IProducts>(`https://flower.elevateegy.com/api/v1/products`);
+    return this._http.get<IProducts>(`products`);
   }
   allCategories(): Observable<ICategories> {
-    return this._http.get<ICategories>(`https://flower.elevateegy.com/api/v1/categories`);
+    return this._http.get<ICategories>(`categories`);
   }
   allOccasions(): Observable<IOccasions> {
-    return this._http.get<IOccasions>(`https://flower.elevateegy.com/api/v1/occasions`);
+    return this._http.get<IOccasions>(`occasions`);
   }
 
   getSpecificProduct(id: string): Observable<any> {
-    return this._http.get(`https://flower.elevateegy.com/api/v1/products/${id}`);
+    return this._http.get(`products/${id}`);
   }
 
   deleteProduct(id: string): Observable<any> {
-    return this._http.delete(`https://flower.elevateegy.com/api/v1/products/${id}`,
-      { headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdmNjQ3YzVhOTgzMmQ4MzU5ZGRhNzhhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwMDQwMTgyfQ.Xli_Z9zrIxmOosQ3uq1APGOr8zxpz4sff5cVQmX71Jk` } }
-    );
+    return this._http.delete(`products/${id}`  );
   }
 
   addProduct(data: IAddProduct|any): Observable<IProducts> {
-    return this._http.post<IProducts>(`https://flower.elevateegy.com/api/v1/products`, data,
-      { headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdmNjQ3YzVhOTgzMmQ4MzU5ZGRhNzhhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwMDQwMTgyfQ.Xli_Z9zrIxmOosQ3uq1APGOr8zxpz4sff5cVQmX71Jk` } },
-    );
+    return this._http.post<IProducts>(`products`, data    );
   }
 
   updateProduct(id: string, data: IAddProduct|any): Observable<IProducts> {
-    return this._http.put<IProducts>(`https://flower.elevateegy.com/api/v1/products/${id}`, data,
-      { headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdmNjQ3YzVhOTgzMmQ4MzU5ZGRhNzhhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwMDQwMTgyfQ.Xli_Z9zrIxmOosQ3uq1APGOr8zxpz4sff5cVQmX71Jk` } },
-    );
+    return this._http.put<IProducts>(`products/${id}`, data    );
   }
 
 }
