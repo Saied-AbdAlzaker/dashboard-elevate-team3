@@ -25,7 +25,7 @@ export const globalInterceptor: HttpInterceptorFn = (req, next) => {
     });
   }
 
-  if(req.url.includes('categories') ) {
+  if(req.method!=='GET')  {
      req = req.clone({
       url: `${baseUrl}${req.url}`,
       setHeaders: {
