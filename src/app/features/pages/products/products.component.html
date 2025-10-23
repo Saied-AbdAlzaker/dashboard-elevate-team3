@@ -1,3 +1,87 @@
-<div class="card flex justify-center">
-    <p-button label="Check" />
-</div>
+<section>
+    <div class="flex justify-between items-center my-3">
+        <h2 class="font-semibold">All Products</h2>
+        <a routerLink="/add-product" class="bg-danger rounded text-white p-2">
+            <i class="pi pi-plus md:me-2" style="font-size: 1rem"></i>
+            <span class="hidden md:inline-block"> Add a newproduct</span>
+        </a>
+    </div>
+    <label for="Search">
+        <div class="relative">
+            <input type="text" id="Search" placeholder="Search..." [(ngModel)]="searchTitle"
+                class="my-3 p-2 w-full rounded-2xl border border-gray-300 shadow-sm sm:text-sm focus:border-none" />
+
+            <span class="absolute inset-y-0 left-2 grid w-8 place-content-center">
+                <i class="pi pi-search" style="color: slateblue"></i>
+            </span>
+        </div>
+    </label>
+
+    <div class="card hidden md:block">
+        <p-table [value]="productsList | search: searchTitle" [paginator]="true" [rows]="5"
+            [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
+            <ng-template #header>
+                <tr>
+                    <th style="width:25%">Name</th>
+                    <th style="width:25%">Price</th>
+                    <th style="width:25%">Stock</th>
+                    <th style="width:25%">Sales</th>
+                    <th style="width:25%">Ratings</th>
+                    <th style="width:25%"></th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-product>
+                <tr>
+                    <td class="font-semibold">{{ product.title }}</td>
+                    <td>{{ product.price | currency:'EGP '}}</td>
+                    <td>
+                        <p-badge [value]="product.quantity" [severity]="stockSeverity(product)" />
+                    </td>
+                    <td>{{ product.sold }}</td>
+                    <td>{{ product.rateAvg }}/5 ({{ product.rateCount }})</td>
+
+                    <td class="md:flex">
+                        <a [routerLink]="['/edit-product',product._id]"
+                            class="bg-[#0063D01A] rounded border border-[#9bc1ea] text-[#0063D0] py-1 px-2 w-20 me-2 hover:shadow-md">
+                            <i class="pi pi-pencil mx-2" style="font-size: 0.8rem"></i> Edit</a>
+
+                        <p-button (onClick)="showDeleteDialog(product)" label="Delete" icon="pi pi-trash"
+                            variant="outlined" size="small" severity="danger" />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <!-- Mobile Responsive -->
+    <div class="card block md:hidden space-y-3">
+        <p-table [value]="productsList" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '25rem' }"
+            [rowsPerPageOptions]="[5, 10, 20]">
+            <ng-template #header>
+                <tr>
+                    <th style="width:20%">Name</th>
+                    <th style="width:15%">Price</th>
+                    <th style="width:15%">Stock</th>
+                    <th style="width:50%"></th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-product>
+                <tr>
+                    <td class="text-sm font-bold">{{ product.title }}</td>
+                    <td class="text-sm">{{ product.price | currency:'EGP '}}</td>
+                    <td class="text-sm">
+                        <p-badge [value]="product.quantity" [severity]="stockSeverity(product)" />
+                    </td>
+
+                    <td class="flex flex-col">
+                        <a [routerLink]="['/edit-product',product._id]"
+                            class="bg-[#0063D01A] rounded border border-[#9bc1ea] text-[#0063D0] py-1 px-2 w-20 me-2 hover:shadow-md">
+                            <i class="pi pi-pencil mx-2" style="font-size: 0.8rem"></i></a>
+
+                        <p-button (onClick)="showDeleteDialog(product)" icon="pi pi-trash" variant="outlined"
+                            size="small" severity="danger" />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</section>

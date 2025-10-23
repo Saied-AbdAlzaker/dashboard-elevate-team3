@@ -1,0 +1,27 @@
+@if (control.errors && control.touched) {
+<ul>
+    @if (control.getError('required')) {
+    <li class="text-[#DC2626] text-sm">
+        Input is required
+    </li>
+    }@else if (control.getError('minlength')) {
+    <li class="text-[#DC2626] text-sm">
+        Input must be at least 2 characters long.
+    </li>
+    }
+</ul>
+}
+<!-- Description -->
+<!-- @if (controlDes.errors && controlDes.touched) {
+<ul>
+    @if (controlDes.getError('required')) {
+    <li class="text-[#DC2626] text-sm">
+        Input is required
+    </li>
+    }@if (controlDes.getError('minlength')) {
+    <li class="text-[#DC2626] text-sm">
+        Input must be at least 10 characters long.
+    </li>
+    }
+</ul>
+} -->

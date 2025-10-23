@@ -1,0 +1,165 @@
+<p-toast />
+<section class="mt-5 bg-[#FAFAFA] p-5">
+    <h2 class="font-semibold text-2xl mb-5 text-[#27272A]">
+        @if (productId) {Update Product: {{product.title}} }@else {Add a New Product}</h2>
+    <div class="card md:w-[75%] bg-white shadow p-5 my-2">
+        <form [formGroup]="productsForm" (ngSubmit)="submitForm(productsForm)">
+            <div class="flex flex-col gap-2 w-full">
+                <label
+                    [class]="productsForm.get('title')?.errors && productsForm.get('title')?.touched ? 'text-[#DC2626]':''"
+                    for="title">Title <span class="text-[#DC2626]">*</span></label>
+                <input pInputText type="text" formControlName="title" id="title" placeholder="Enter product title"
+                    pSize="small" />
+                @let titleControl = productsForm.get('title');
+                @if (titleControl) {
+                <app-validation-product [control]="titleControl"></app-validation-product>
+                }
+            </div>
+            <div class="flex flex-col gap-2 w-full my-3">
+                <label
+                    [class]="productsForm.get('description')?.errors && productsForm.get('description')?.touched ? 'text-[#DC2626]':''"
+                    for="description">Description <span class="text-[#DC2626]">*</span></label>
+                <textarea rows="5" cols="30" pTextarea formControlName="description" id="description"
+                    placeholder="Enter product description" pSize="small" [autoResize]="true"></textarea>
+                @if (productsForm.get('description')?.errors && productsForm.get('description')?.touched) {
+                <li *ngIf="productsForm.get('description')?.errors?.['required']" class="text-[#DC2626] text-sm">
+                    Input is required.
+                </li>
+                <li *ngIf="productsForm.get('description')?.errors?.['minlength']" class="text-[#DC2626] text-sm">
+                    Input must be at least 10 characters long.
+                </li>
+                }
+            </div>
+            <div class="md:flex gap-2">
+                <div class="flex flex-col gap-2 md:w-1/3">
+                    <label
+                        [class]="productsForm.get('price')?.errors && productsForm.get('price')?.touched ? 'text-[#DC2626]':''"
+                        for="price">Price <span class="text-[#DC2626]">*</span></label>
+                    <p-inputnumber formControlName="price" (onInput)="calculateDiscountedPrice()" [showButtons]="true"
+                        inputId="price" mode="currency" currency="EGP" />
+                    @let priceControl = productsForm.get('price');
+                    @if (priceControl) {
+                    <app-validation-product [control]="priceControl"></app-validation-product>
+                    }
+                </div>
+                <div class="flex flex-col gap-2 md:w-1/3">
+                    <label for="discount">Discount</label>
+                    <p-inputnumber formControlName="discount" (onInput)="calculateDiscountedPrice()"
+                        [showButtons]="true" inputId="discount" mode="currency" currency="EGP" />
+                </div>
+                <div class="flex flex-col gap-2 md:w-1/3">
+                    <label for="afterDiscount">Price after discount</label>
+                    <p-inputnumber formControlName="priceAfterDiscount" [disabled]="true" inputId="afterDiscount"
+                        mode="currency" currency="EGP" />
+                </div>
+            </div>
+            <div class="flex flex-col gap-2 w-full my-3">
+                <label
+                    [class]="productsForm.get('quantity')?.errors && productsForm.get('quantity')?.touched ? 'text-[#DC2626]':''"
+                    for="quantity">Quantity <span class="text-[#DC2626]">*</span></label>
+                <p-inputnumber formControlName="quantity" [showButtons]="true" inputId="quantity" />
+                @let quantityControl = productsForm.get('quantity');
+                @if (quantityControl) {
+                <app-validation-product [control]="quantityControl"></app-validation-product>
+                }
+            </div>
+            @if (!productId) {
+            <div class="md:flex gap-2">
+                <div class="flex flex-col md:w-1/2 relative">
+                    <label
+                        [class]="productsForm.get('imgCover')?.errors && productsForm.get('imgCover')?.touched ? 'text-[#DC2626]':''"
+                        for="cover">Product cover <span class="text-[#DC2626]">*</span></label>
+                    <input pInputText type="text" id="cover" pSize="large" />
+                    <p-fileupload mode="basic" chooseIcon="pi pi-upload" formControlName="imgCover" name="cover"
+                        accept="image/*" maxFileSize="1000000" [auto]="true" (onSelect)="onCoverSelect($event)"
+                        chooseLabel="Upload file" [multiple]="true" class="absolute inset-y-7 right-2 " />
+
+                    @let imgCoverControl = productsForm.get('imgCover');
+                    @if (imgCoverControl) {
+                    <app-validation-product [control]="imgCoverControl"></app-validation-product>
+                    }
+                </div>
+                <div class="flex flex-col md:w-1/2 relative">
+                    <label
+                        [class]="productsForm.get('images')?.errors && productsForm.get('images')?.touched ? 'text-[#DC2626]':''"
+                        for="gallery">Product gallery <span class="text-[#DC2626]">*</span></label>
+                    <input pInputText type="text" id="gallery" pSize="large" />
+                    <p-fileupload mode="basic" chooseIcon="pi pi-upload" formControlName="images" name="cover"
+                        accept="image/*" maxFileSize="1000000" [auto]="true" (onSelect)="onGallerySelect($event)"
+                        chooseLabel="Upload file" [multiple]="true" class="absolute inset-y-7 right-2 " />
+                    @let imagesControl = productsForm.get('images');
+                    @if (imagesControl) {
+                    <app-validation-product [control]="imagesControl"></app-validation-product>
+                    }
+                </div>
+            </div>
+            }
+            <div class="flex flex-col gap-2 w-full my-3">
+                <label
+                    [class]="productsForm.get('category')?.errors && productsForm.get('category')?.touched ? 'text-[#DC2626]':''"
+                    for="category">Category <span class="text-[#DC2626]">*</span></label>
+                <p-dropdown formControlName="category" [options]="categoryList" optionLabel="name" optionValue="_id"
+                    placeholder="Select an option"></p-dropdown>
+                @let categoryControl = productsForm.get('category');
+                @if (categoryControl) {
+                <app-validation-product [control]="categoryControl"></app-validation-product>
+                }
+            </div>
+            <div class="flex flex-col gap-2 w-full">
+                <label
+                    [class]="productsForm.get('occasion')?.errors && productsForm.get('occasion')?.touched ? 'text-[#DC2626]':''"
+                    for="occasion">Occasion <span class="text-[#DC2626]">*</span></label>
+                <p-dropdown formControlName="occasion" [options]="occasionsList" optionLabel="name" optionValue="_id"
+                    placeholder="Select an option"></p-dropdown>
+                @let occasionControl = productsForm.get('occasion');
+                @if (occasionControl) {
+                <app-validation-product [control]="occasionControl"></app-validation-product>
+                }
+            </div>
+
+            @if (productId) {
+            <div class="md:flex justify-end my-5">
+                <button (click)="showImgCover()" class="text-[#155DFC] rounded-2xl border p-2 md:mx-2" type="button">
+                    <i class="pi pi-image" style="font-size: 0.8rem"></i> View product cover
+                </button>
+                <p-dialog header="View product cover" [modal]="true" [(visible)]="visible" [style]="{ width: '30rem' }"
+                    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
+                    <div class="card flex justify-center">
+                        <p-image [src]="imageDialog" [alt]="product.title" width="250" [preview]="true" />
+                    </div>
+                </p-dialog>
+
+                <div>
+                    <button (click)="showImages()" class="text-[#155DFC] rounded-2xl border p-2 md:mx-2" type="button">
+                        <i class="pi pi-image" style="font-size: 0.8rem"></i> View product gallery
+                    </button>
+                    <p-dialog header="View product gallery" [modal]="true" [(visible)]="visibleImages"
+                        [style]="{ width: '40rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+                        [maximizable]="true">
+                        <div class="card">
+                            <p-carousel [value]="galleryDialog" [numVisible]="2" [numScroll]="2" [circular]="false"
+                                [responsiveOptions]="responsiveOptions">
+                                <ng-template let-product #item>
+                                    <div class="border border-surface rounded-border m-2 p-4">
+                                        <div class="mb-4">
+                                            <div class="relative mx-auto">
+                                                <img [src]="product" [alt]="product.images"
+                                                    class="w-full rounded-border" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </p-carousel>
+                        </div>
+                    </p-dialog>
+                </div>
+            </div>
+            }
+            <!-- [disabled]="productsForm.invalid" -->
+            <button
+                class="bg-danger text-white w-full md:mt-10 mt-20 rounded-[10px] py-2.5 px-10 hover:bg-primary-dark hover:shadow-lg transition-all dark:bg-darkMode-secondary dark:hover:bg-secondary">
+                @if (productId) {Update Product}@else {Add Product}
+            </button>
+        </form>
+    </div>
+</section>
