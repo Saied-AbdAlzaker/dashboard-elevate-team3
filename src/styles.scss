@@ -32,3 +32,45 @@ tr:hover {
 body {
   font-family: "Roboto", sans-serif;
 }
+
+
+
+/* Input Phone For ngx-intl-tel-input   */
+
+.input-phone .iti--allow-dropdown{
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+}
+.input-phone .iti__tel-input{
+  width: 100%;
+  display: block;
+  padding: .75rem;
+    border-radius: 10px;
+
+}
+.input-phone .iti__selected-flag{
+  border-start-start-radius: 10px;
+  border-end-start-radius: 10px;
+}
+.input-phone .iti__tel-input:focus-visible{
+  outline: none;
+}
+.input-phone .iti--allow-dropdown:has(.iti__tel-input:focus-visible) {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 .25rem rgba(255, 102, 139, .25);
+}
+.input-phone .iti__country-list{
+  max-height: 300px;
+}
+.input-phone #country-search-box{
+  padding: 0.25rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+}
+.input-phone #country-search-box:focus-visible {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 .25rem rgba(255, 102, 139, .25);
+}
+/* End Input Phone For ngx-intl-tel-input   */
