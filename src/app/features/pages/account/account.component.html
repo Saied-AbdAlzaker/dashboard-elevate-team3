@@ -111,9 +111,14 @@
           <button class="text-[var(--primary)] me-2" (click)="deleteAccount()">Delete My Account</button>
           <a routerLink="/account/change-password" class="">Change Password</a>
         </div>
-        <button class=" bg-[var(--primary)] text-white rounded-[10px] py-2.5 px-5 hover:bg-primary-dark
+        <app-button
+              [typeButton]="'submit'"
+              [label]="'Save Changes'"
+              >
+            </app-button>
+<!--         <button class=" bg-[var(--primary)] text-white rounded-[10px] py-2.5 px-5 hover:bg-primary-dark
                         hover:shadow-lg transition-all dark:bg-darkMode-secondary dark:hover:bg-secondary">Save Changes</button>
-      </div>
+ -->      </div>
   </form>
   </div>
 </div>

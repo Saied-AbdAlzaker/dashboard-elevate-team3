@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ChangePasswordService } from '../service/change-password.service';
 import { Subscription } from 'rxjs';
+import { ButtonComponent } from '../../../../shared/components/ui/button/button.component';
 
 @Component({
   selector: 'app-change-password',
-  imports: [FormsModule,ReactiveFormsModule],
+  imports: [FormsModule,ReactiveFormsModule,ButtonComponent],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss'
 })

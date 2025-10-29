@@ -7,13 +7,14 @@ import { UploadPhotoService } from './service/upload-photo.service';
 import { EditProfileService } from './service/edit-profile.service';
 import { DeleteAccountService } from './service/delete-account.service';
 import { Subscription } from 'rxjs';
+import { ButtonComponent } from '../../../shared/components/ui/button/button.component';
 interface gender {
     name: string;
     value: string;
 }
 @Component({
   selector: 'app-account',
-  imports: [ReactiveFormsModule, NgxIntlTelInputModule, SelectModule, FormsModule, RouterLink, RouterOutlet],
+  imports: [ReactiveFormsModule, NgxIntlTelInputModule, SelectModule, FormsModule, RouterLink, RouterOutlet, ButtonComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.scss'
 })
@@ -65,6 +66,7 @@ export class AccountComponent {
     this.editProfile();
 
   }
+  /* Get Data User Profile */
   editProfile() {
     this.editProfileSubscription = this._editProfileService.editProfile().subscribe({
       next:(res)=> {
@@ -103,6 +105,7 @@ export class AccountComponent {
   submitForm() {
     if (this.accountForm.valid) {
       console.log(this.accountForm.value);
+      this.uploadPhoto();
     } else {
       console.warn('Form is invalid');
     }
@@ -114,7 +117,7 @@ export class AccountComponent {
       const file = input.files[0];
 
       // التحقق من النوع
-      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
       if (!allowedTypes.includes(file.type)) {
         this.errorMessage = 'The file must be in the format JPG أو PNG أو GIF.';
         this.imageSrc = null;
@@ -141,7 +144,6 @@ export class AccountComponent {
       'photo',
       (event.target as HTMLInputElement).files?.[0] || ''
     );
-    this.uploadPhoto();
   }
 
   deleteAccount(){

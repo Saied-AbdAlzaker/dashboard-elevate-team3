@@ -10,7 +10,7 @@ import { EditProfileResponse } from '../interface/edit-profile-response';
 })
 export class EditProfileService {
 
-
+  lastName:string = "Espinoza"
 
   constructor(private _http:HttpClient) { }
 
@@ -18,7 +18,7 @@ export class EditProfileService {
     // let last_Name = typeof window !== 'undefined'? localStorage.getItem('Rose_LastName') : '';
 
     return this._http.put<EditProfileResponse>('auth/editProfile',
-      {lastName:"Espinoza"}
+      {lastName:this.lastName}
     );
 
   }
