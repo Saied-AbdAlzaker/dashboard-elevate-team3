@@ -6,32 +6,54 @@ import { environment } from '../../../environments/environment';
 
 export const globalInterceptor: HttpInterceptorFn = (req, next) => {
 
-  const baseUrl: string = environment.apiUrl;
+  // const baseUrl: string = environment.apiUrl;
 
-  // JUST TEST
-  const TokenUser = TOKEN.User;
-  const TokenAdmin = TOKEN.Admin;
+  // // JUST TEST
+  // const TokenUser = TOKEN.User;
+  // const TokenAdmin = TOKEN.Admin;
 
-  let PLATFORM = inject(PLATFORM_ID);
+  // let PLATFORM = inject(PLATFORM_ID);
+
+  // if (isPlatformBrowser(PLATFORM)) {
+  //   const token = localStorage.getItem('token') || '';
+
+  //   req = req.clone({
+  //     url: `${baseUrl}${req.url}`,
+  //     setHeaders: {
+  //       Authorization: `Bearer ${TokenUser}` 
+  //     }
+  //   });
+  // }
+
+  // return next(req);
+
+  // --------------------------
+  const baseUrl = environment.apiUrl;
+  const PLATFORM = inject(PLATFORM_ID);
 
   if (isPlatformBrowser(PLATFORM)) {
-    const token = localStorage.getItem('token') || '';
+    // Get tokens
+    const userToken = localStorage.getItem('userToken') || '';
+    const adminToken = localStorage.getItem('adminToken') || '';
 
+    let token = '';
+
+    // 🧠 Decide which token to use based on the request URL or endpoint
+    if (req.url.includes('/dashboard')) {
+      token = adminToken;
+    } else {
+      token = userToken;
+    }
+
+    // 🛠 Clone request and add token + base URL
     req = req.clone({
       url: `${baseUrl}${req.url}`,
-      setHeaders: {
-        Authorization: `Bearer ${TokenUser}`
-      }
+      setHeaders: token
+        ? {
+            Authorization: `Bearer ${token}`,
+          }
+        : {},
     });
-
-    /*if (token !== null) {
-      req = req.clone({
-        url: `${baseUrl}${req.url}`,
-        setHeaders: {
-          Authorization: `Bearer ${Token}`
-        }
-      });
-    }*/
   }
 
   return next(req);

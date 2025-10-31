@@ -4,45 +4,44 @@ import { Observable } from 'rxjs';
 import { IAddProduct, IProducts, Product } from '../../interfaces/products/products';
 import { ICategories } from '../../interfaces/ctegories/categories';
 import { IOccasions } from '../../interfaces/occasions/occasions';
-import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
 
-  token: string = localStorage.getItem('token') || '';
+  // token: string = localStorage.getItem('token') || '';
   constructor(private _http: HttpClient) { }
 
   allProducts(): Observable<IProducts> {
-    return this._http.get<IProducts>(`${environment.apiUrl}/products`);
+    return this._http.get<IProducts>(`products`);
   }
   allCategories(): Observable<ICategories> {
-    return this._http.get<ICategories>(`${environment.apiUrl}/categories`);
+    return this._http.get<ICategories>(`categories`);
   }
   allOccasions(): Observable<IOccasions> {
-    return this._http.get<IOccasions>(`${environment.apiUrl}/occasions`);
+    return this._http.get<IOccasions>(`occasions`);
   }
 
   getSpecificProduct(id: string): Observable<Product | any> {
-    return this._http.get<Product>(`${environment.apiUrl}/products/${id}`);
+    return this._http.get<Product>(`products/${id}`);
   }
 
   deleteProduct(id: string): Observable<Product> {
-    return this._http.delete<Product>(`${environment.apiUrl}/products/${id}`,
-      { headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdmNjQ3YzVhOTgzMmQ4MzU5ZGRhNzhhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwMDQwMTgyfQ.Xli_Z9zrIxmOosQ3uq1APGOr8zxpz4sff5cVQmX71Jk` } }
+    return this._http.delete<Product>(`products/${id}`,
+      { headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdmNjQ3YzVhOTgzMmQ4MzU5ZGRhNzhhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYxMTUzMTU4fQ.5Q8qc4Jawka-aBZIUkAXtMaF6_nFGpOwIlskOxYtBw8` } }
     );
   }
 
   addProduct(data: IAddProduct | any): Observable<IProducts> {
-    return this._http.post<IProducts>(`${environment.apiUrl}/products`, data,
-      { headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdmNjQ3YzVhOTgzMmQ4MzU5ZGRhNzhhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwMDQwMTgyfQ.Xli_Z9zrIxmOosQ3uq1APGOr8zxpz4sff5cVQmX71Jk` } },
+    return this._http.post<IProducts>(`products`, data,
+      { headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdmNjQ3YzVhOTgzMmQ4MzU5ZGRhNzhhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYxMTUzMTU4fQ.5Q8qc4Jawka-aBZIUkAXtMaF6_nFGpOwIlskOxYtBw8` } },
     );
   }
 
   updateProduct(id: string, data: IAddProduct | any): Observable<IProducts> {
-    return this._http.put<IProducts>(`${environment.apiUrl}/products/${id}`, data,
-      { headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdmNjQ3YzVhOTgzMmQ4MzU5ZGRhNzhhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYwMDQwMTgyfQ.Xli_Z9zrIxmOosQ3uq1APGOr8zxpz4sff5cVQmX71Jk` } },
+    return this._http.put<IProducts>(`products/${id}`, data,
+      { headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdmNjQ3YzVhOTgzMmQ4MzU5ZGRhNzhhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYxMTUzMTU4fQ.5Q8qc4Jawka-aBZIUkAXtMaF6_nFGpOwIlskOxYtBw8` } },
     );
   }
 
