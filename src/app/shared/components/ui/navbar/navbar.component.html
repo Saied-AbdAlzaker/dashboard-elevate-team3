@@ -1,5 +1,5 @@
 <!-- Mobile Header -->
-<div class="fixed top-0 left-0 right-0 bg-white border-t border-gray-50 shadow-sm md:hidden z-50">
+<div class="sticky z-30 top-0 left-0 right-0 bg-white border-t border-gray-50 shadow-sm md:hidden z-50">
   <div class="flex items-center justify-between px-3 py-2">
 
     <!-- Logo -->
@@ -30,7 +30,7 @@
           <div
             class="origin-top-right absolute top-11 -right-2 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
             <div class="py-1">
-              <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+              <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" routerLink="/account">
                 <i class="fa-regular fa-user mr-2"></i> Account
               </a>
               <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
@@ -46,6 +46,6 @@
 </div>
 
 <!-- Desktop Breadcrumb -->
-<div class="hidden md:block border-b border-gray-50">
+<div class="hidden sticky z-30 top-0 md:block border-b border-gray-50 shadow-sm">
   <p-breadcrumb [home]="home" [model]="items" (onItemClick)="home.label" />
 </div>

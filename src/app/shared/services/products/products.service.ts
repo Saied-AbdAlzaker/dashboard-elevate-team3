@@ -13,6 +13,7 @@ export class ProductsService {
   // token: string = localStorage.getItem('token') || '';
   constructor(private _http: HttpClient) { }
 
+
   allProducts(): Observable<IProducts> {
     return this._http.get<IProducts>(`products`);
   }
@@ -23,6 +24,7 @@ export class ProductsService {
     return this._http.get<IOccasions>(`occasions`);
   }
 
+<<<<<<< HEAD
   getSpecificProduct(id: string): Observable<Product | any> {
     return this._http.get<Product>(`products/${id}`);
   }
@@ -43,6 +45,22 @@ export class ProductsService {
     return this._http.put<IProducts>(`products/${id}`, data,
       { headers: { Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjdmNjQ3YzVhOTgzMmQ4MzU5ZGRhNzhhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzYxMTUzMTU4fQ.5Q8qc4Jawka-aBZIUkAXtMaF6_nFGpOwIlskOxYtBw8` } },
     );
+=======
+  getSpecificProduct(id: string): Observable<any> {
+    return this._http.get(`products/${id}`);
+  }
+
+  deleteProduct(id: string): Observable<any> {
+    return this._http.delete(`products/${id}`  );
+  }
+
+  addProduct(data: IAddProduct|any): Observable<IProducts> {
+    return this._http.post<IProducts>(`products`, data    );
+  }
+
+  updateProduct(id: string, data: IAddProduct|any): Observable<IProducts> {
+    return this._http.put<IProducts>(`products/${id}`, data    );
+>>>>>>> b1439bb2946d9746ced0415a5bddcc817aaf892f
   }
 
 }
