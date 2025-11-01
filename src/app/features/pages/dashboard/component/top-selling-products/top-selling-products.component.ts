@@ -4,6 +4,7 @@ import {TopSellingProductsService} from './service/top-selling-products.service'
 import {TableModule} from 'primeng/table';
 import {TopSellingProduct, TopSellingProducts} from './model/top-selling-products';
 import {DecimalPipe} from '@angular/common';
+import { StatisticsService } from '../../service/statistics.service';
 
 @Component({
   selector: 'app-top-selling-products',
@@ -16,7 +17,7 @@ import {DecimalPipe} from '@angular/common';
 })
 export class TopSellingProductsComponent implements OnInit, OnDestroy {
 
-  private readonly topSellingProductsService: TopSellingProductsService = inject(TopSellingProductsService);
+  private readonly _StatisticsService: StatisticsService = inject(StatisticsService);
   private subscriptions!: Subscription;
 
   topSellingProducts: TopSellingProduct[] = [];
@@ -28,18 +29,15 @@ export class TopSellingProductsComponent implements OnInit, OnDestroy {
   }
 
   getSellingProducts(): void {
-    this.subscriptions = this.topSellingProductsService.getTopSellingProducts().subscribe({
-      next: (data: TopSellingProducts): void => {
+    this.subscriptions = this._StatisticsService.getStatisticsDashboard().subscribe({
+      next: (data): void => {
         this.topSellingProducts = data.statistics.products.topSellingProducts;
-        console.log(data);
-        console.log(this.topSellingProducts);
 
         const soldArray = this.topSellingProducts.map(product => product.sold);
 
         this.maxSold = Math.max(...soldArray);
         this.minSold = Math.min(...soldArray);
 
-        console.log(this.maxSold);
       }
     });
   }

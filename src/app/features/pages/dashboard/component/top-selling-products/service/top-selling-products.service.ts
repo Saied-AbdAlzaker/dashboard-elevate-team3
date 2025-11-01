@@ -11,7 +11,7 @@ export class TopSellingProductsService {
 
   private readonly httpClient: HttpClient = inject(HttpClient);
 
-  getTopSellingProducts(): Observable <TopSellingProducts> {
-    return this.httpClient.get <TopSellingProducts> (ApiEndPoint.TOP_SELLING_PRODUCTS);
+  getTopSellingProducts(): Observable <any> {
+    return this.httpClient.get <any> ('statistics');
   }
 }

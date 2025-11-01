@@ -5,6 +5,8 @@ import {LowStockProduct, SellingStock, Statistics} from './model/selling-stock';
 import {LowStockService} from './service/low-stock.service';
 import {Subscription} from 'rxjs';
 import {DecimalPipe} from '@angular/common';
+import { StatisticsService } from '../../service/statistics.service';
+import { log } from 'console';
 
 
 @Component({
@@ -19,7 +21,7 @@ import {DecimalPipe} from '@angular/common';
 })
 export class LowStockProducts implements OnInit, OnDestroy {
 
-  private readonly sellingStockService: LowStockService = inject(LowStockService);
+  private readonly _statisticsService: StatisticsService = inject(StatisticsService);
   private subscriptions!: Subscription;
 
   lowStockProducts: LowStockProduct[] = [];
@@ -29,10 +31,11 @@ export class LowStockProducts implements OnInit, OnDestroy {
   }
 
   getLowStockProducts(): void {
-    this.subscriptions = this.sellingStockService.getLowStockProducts().subscribe({
-      next: (data: SellingStock): void => {
-        this.lowStockProducts = data.statistics.lowStockProducts;
-        console.log(this.lowStockProducts);
+    this.subscriptions = this._statisticsService.getStatisticsDashboard().subscribe({
+      next: (data) => {
+
+        this.lowStockProducts = data.statistics.products.lowStockProducts;
+        // console.log(this.lowStockProducts);
       },
     })
   }
