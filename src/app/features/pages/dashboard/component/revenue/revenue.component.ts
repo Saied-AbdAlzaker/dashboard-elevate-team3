@@ -20,9 +20,9 @@ export class RevenueComponent {
 
   DailyRevenue:OrderRevenue[] = [];
 
-    basicData: any;
+    basicData: any; // var with prime ng
 
-    basicOptions: any;
+    basicOptions: any; // var with prime ng
 
     platformId = inject(PLATFORM_ID);
 
@@ -31,13 +31,7 @@ export class RevenueComponent {
   constructor(private cd: ChangeDetectorRef) {}
 
 
-    /* themeEffect = effect(() => {
-        if (this.configService.transitionComplete()) {
-            if (this.designerService.preset()) {
-                this.initChart();
-            }
-        }
-    }); */
+
 
     ngOnInit() {
       this.getOrderRevenue();
@@ -54,15 +48,7 @@ export class RevenueComponent {
           console.log('Error fetching revenue data', err);
         }
       })
-      /* this.subscription = this._statisticsService.getStatisticsDashboard().subscribe({
-      next: (res) => {
-        console.log('this Revenue data => =======}}} ', this.DailyRevenue);
-          this.DailyRevenue = res.statistics.orders.dailyRevenue;
-        this.initChart(); // بعد ما البيانات توصل
 
-      }, error: (err) => {
-        console.log('Error fetching revenue data', err);
-      }}); */
     }
 
 

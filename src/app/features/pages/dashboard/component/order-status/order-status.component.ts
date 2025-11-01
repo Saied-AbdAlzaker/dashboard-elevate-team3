@@ -54,13 +54,7 @@ export default class OrderStatusComponent implements OnInit, OnDestroy {
 
   getOrderStatus(): void {
     this.subscription = this._statisticsService.getStatisticsDashboard().subscribe({
-      /*next: res => {
-        this.ordersByStatus = res.statistics.ordersByStatus;
-        this.filteredOrders = this.ordersByStatus.filter(ordersByStatus =>
-          ["completed", "inProgress", "canceled"].includes(ordersByStatus._id ?? "")
-        );
-        console.log(this.filteredOrders);
-      },*/
+
 
       next: (res) => {
         const data :Orders= res.statistics.orders;
