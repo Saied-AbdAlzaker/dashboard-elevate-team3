@@ -1,3 +1,8 @@
+export interface Orders {
+  ordersByStatus: ordersByStatus[]
+  dailyRevenue: any[]
+  monthlyRevenue: any[]
+}
 export interface OrderStatus {
   message: string
   statistics: Statistics
