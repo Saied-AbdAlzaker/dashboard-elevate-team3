@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
 export const routes: Routes = [
     { path: '', loadComponent: () => import('../app/core/layout/dashboard-layout/dashboard-layout.component').then
@@ -13,6 +13,10 @@ export const routes: Routes = [
           ((c) => c.ProductsComponent),
       },
       { path: 'add-Product', title: 'Add Product', data: { breadcrumb: 'Add Product' }, loadComponent: () =>
+          import('./features/pages/products/components/add-edit-product/add-edit-product.component').then
+          ((c) => c.AddEditProductComponent),
+      },
+      { path: 'edit-product/:id', title: 'Update Product', data: { breadcrumb: 'Update Product' }, loadComponent: () =>
           import('./features/pages/products/components/add-edit-product/add-edit-product.component').then
           ((c) => c.AddEditProductComponent),
       },
