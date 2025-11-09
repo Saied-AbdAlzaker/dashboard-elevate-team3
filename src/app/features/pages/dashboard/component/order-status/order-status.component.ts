@@ -2,9 +2,10 @@ import {Subscription} from 'rxjs';
 import { Chart } from 'chart.js/auto';
 import {OrderStatusService} from './service/order-status.service';
 import { Component, inject, OnDestroy, OnInit} from '@angular/core';
-import {ordersByStatus, OrderStatus} from './model/order-status';
+import {Orders, ordersByStatus, OrderStatus} from './model/order-status';
 import {data} from 'autoprefixer';
 import {NgClass} from '@angular/common';
+import { StatisticsService } from '../../service/statistics.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ import {NgClass} from '@angular/common';
 })
 export default class OrderStatusComponent implements OnInit, OnDestroy {
 
-  private readonly orderStatusService: OrderStatusService = inject(OrderStatusService);
+  private readonly _statisticsService: StatisticsService = inject(StatisticsService);
   private subscription!: Subscription;
 
   /*ordersByStatus: ordersByStatus[] = [];
@@ -52,22 +53,15 @@ export default class OrderStatusComponent implements OnInit, OnDestroy {
   }
 
   getOrderStatus(): void {
-    this.subscription = this.orderStatusService.GetOrderStatus().subscribe({
-      /*next: res => {
-        this.ordersByStatus = res.statistics.ordersByStatus;
-        this.filteredOrders = this.ordersByStatus.filter(ordersByStatus =>
-          ["completed", "inProgress", "canceled"].includes(ordersByStatus._id ?? "")
-        );
-        console.log(this.filteredOrders);
-      },*/
+    this.subscription = this._statisticsService.getStatisticsDashboard().subscribe({
 
-      next: (res: OrderStatus) => {
-        // console.log(res);
-        const data: ordersByStatus[] = res.statistics.ordersByStatus;
 
-        this.completed = data.find(o => o._id === "completed") || { _id: "completed", count: 0 };
-        this.inProgress = data.find(o => o._id === "inProgress") || { _id: "inProgress", count: 0 };
-        this.canceled = data.find(o => o._id === "canceled") || { _id: "canceled", count: 0 };
+      next: (res) => {
+        const data :Orders= res.statistics.orders;
+
+        this.completed = data.ordersByStatus.find(o => o._id === "completed") || { _id: "completed", count: 0 };
+        this.inProgress = data.ordersByStatus.find(o => o._id === "inProgress") || { _id: "inProgress", count: 0 };
+        this.canceled = data.ordersByStatus.find(o => o._id === "canceled") || { _id: "canceled", count: 0 };
 
         this.statistics = [
           { label: 'Complete', color: 'bg-green-600', count: this.completed?.count || 0 },
@@ -77,7 +71,6 @@ export default class OrderStatusComponent implements OnInit, OnDestroy {
 
         this.totalOrders = (this.completed?.count || 0) + (this.inProgress?.count || 0) + (this.canceled?.count || 0);
 
-        console.log("Data", data);
         this.chart();
       },
       error: error => {

@@ -1,8 +1,25 @@
-<section>
-  <app-order-status></app-order-status>
+<section class="flex flex-col md:flex-row gap-4 mb-6">
+  <div class="w-full md:w-1/2">
+
+    <app-total-view></app-total-view>
+  </div>
+    <div class="w-full md:w-1/2">
+
+  <app-categories></app-categories>
+    </div>
+</section>
+<section class="flex flex-col md:flex-row gap-4 mb-6">
+  <div class="w-full md:w-1/4">
+
+    <app-order-status></app-order-status>
+  </div>
+    <div class="w-full md:w-1/8">
+
+  <app-revenue></app-revenue>
+    </div>
 </section>
 
-<section class="flex flex-col md:flex-row gap-4 mt-6">
+<section class="flex flex-col md:flex-row gap-4 mb-6">
   <div class="w-full md:w-1/2">
     <app-top-selling-products></app-top-selling-products>
   </div>

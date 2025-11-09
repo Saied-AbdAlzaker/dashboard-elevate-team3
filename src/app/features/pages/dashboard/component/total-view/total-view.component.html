@@ -1,0 +1,23 @@
+ <section class="bg-white  p-6  rounded-2xl  flex flex-wrap gap-4">
+  <div class="w-full md:w-[48.5%] p-4 bg-[#FBEAEA] rounded-2xl">
+
+    <i class="fa-solid fa-boxes-stacked text-[#A6252A] fa-2x fa-fw"></i>
+    <div class=" text-[#A6252A] text-2xl font-semibold my-2">{{totalProducts}}</div>
+    <div class="font-semibold">Total products</div>
+  </div>
+  <div class="w-full md:w-[48.5%] p-4 bg-[#0063D00D] rounded-2xl">
+    <i class="fa-solid fa-receipt text-[#155DFC] fa-2x fa-fw"></i>
+    <div class=" text-[#155DFC] text-2xl font-semibold my-2">{{totalOrders | number:"3.2-2"}}</div>
+    <div class="font-semibold">Total orders</div>
+  </div>
+  <div class="w-full md:w-[48.5%] p-4 bg-[#753CBF0D] rounded-2xl">
+    <i class="fa-solid fa-clipboard-list text-[#753CBF] fa-2x fa-fw"></i>
+    <div class=" text-[#753CBF] text-2xl font-semibold my-2">{{totalCategories}}</div>
+    <div class="font-semibold">Total categories</div>
+  </div>
+  <div class="w-full md:w-[48.5%] p-4 bg-[#0089610D] rounded-2xl">
+    <i class="fa-solid fa-sack-dollar text-[#009966] fa-2x fa-fw"></i>
+    <div class=" text-[#009966] text-2xl font-semibold my-2">{{totalRevenue| currency :'EGP '}} </div>
+    <div class="font-semibold">Total revenue</div>
+  </div>
+  </section>

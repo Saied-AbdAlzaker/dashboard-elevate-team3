@@ -70,7 +70,6 @@ export class AccountComponent {
   editProfile() {
     this.editProfileSubscription = this._editProfileService.editProfile().subscribe({
       next:(res)=> {
-        console.log(res);
 
       const user = res?.user;
         if (user) {

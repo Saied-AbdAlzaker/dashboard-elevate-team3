@@ -45,12 +45,10 @@ export class AddCategoryComponent implements OnInit{
   /* Load Data For Edit Category */
   getDateOfCategory(){
     this.categoryId = this._activatedRoute.snapshot.paramMap.get('id');
-    console.log(this.categoryId);
     if(this.categoryId ) {
       this.buttonStatus=true
       this.loadCategorySubscription = this._categoriesService.getCategory(this.categoryId).subscribe({
         next:(res)=>{
-          console.log(res);
           this.categoryForm.get('name')?.setValue(res.category.name)
           this.selectedFileName = res.category.image
 
@@ -74,7 +72,6 @@ export class AddCategoryComponent implements OnInit{
         formData.append('image',this.categoryForm.get('image')?.value);
         this.addCategorySubscription = this._categoriesService.addCategories(formData).subscribe({
           next:(res)=> {
-            console.log(res);
             this.messageService.add({ severity: 'success', summary: 'Success', detail: `${res.message} added ${res.category.name}`  });
             this.categoryForm.reset()
           },
@@ -94,7 +91,6 @@ export class AddCategoryComponent implements OnInit{
         formData.append('image',this.categoryForm.get('image')?.value);
         this.editCategorySubscription = this._categoriesService.updateCategory(this.categoryId,formData).subscribe({
            next:(res)=> {
-            console.log(res);
            this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
           },
             error:(err) => {
