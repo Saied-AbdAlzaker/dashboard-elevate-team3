@@ -70,7 +70,7 @@ export class RevenueComponent {
     this.basicData = {
       labels,
       datasets: [{
-        label: 'الإيرادات الشهرية',
+
         data: values,
         fill: true,
         backgroundColor: 'rgba(255, 99, 132, 0.2)',

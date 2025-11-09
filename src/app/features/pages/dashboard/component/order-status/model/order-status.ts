@@ -1,7 +1,7 @@
 export interface Orders {
   ordersByStatus: ordersByStatus[]
-  dailyRevenue: any[]
-  monthlyRevenue: any[]
+  dailyRevenue: dailyRevenue[]
+  monthlyRevenue: monthlyRevenue[]
 }
 export interface OrderStatus {
   message: string
@@ -24,7 +24,7 @@ export interface ordersByStatus {
   count: number
 }
 
-/*export interface dailyRevenue {
+export interface dailyRevenue {
   _id: string
   revenue: number
   count: number
@@ -34,4 +34,4 @@ export interface monthlyRevenue {
   _id: string
   revenue: number
   count: number
-}*/
+}
