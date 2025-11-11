@@ -1,0 +1,23 @@
+@import "primeicons/primeicons.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+tr:hover {
+  background-color: #FBEAEA !important;
+}
+
+.p-fileupload-choose-button {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.p-button-label, .pi-upload {
+  color: #DC2626;
+  border: none;
+}
+
+.p-paginator-page-selected {
+  background-color: #A6252A !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+}/*# sourceMappingURL=styles.css.map */

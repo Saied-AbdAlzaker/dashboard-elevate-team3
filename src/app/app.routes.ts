@@ -13,7 +13,11 @@ export const routes: Routes = [
           ((c) => c.ProductsComponent),
       },
       { path: 'add-Product', title: 'Add Product', data: { breadcrumb: 'Add Product' }, loadComponent: () =>
-          import('./features/pages/add-edit-product/add-edit-product.component').then
+          import('./features/pages/products/components/add-edit-product/add-edit-product.component').then
+          ((c) => c.AddEditProductComponent),
+      },
+      { path: 'edit-product/:id', title: 'Update Product', data: { breadcrumb: 'Update Product' }, loadComponent: () =>
+          import('./features/pages/products/components/add-edit-product/add-edit-product.component').then
           ((c) => c.AddEditProductComponent),
       },
       { path: 'categories', title: 'Categories', data: { breadcrumb: 'Categories' }, loadComponent: () =>

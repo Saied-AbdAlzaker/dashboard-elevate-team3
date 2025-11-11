@@ -21,13 +21,9 @@
                     for="description">Description <span class="text-[#DC2626]">*</span></label>
                 <textarea rows="5" cols="30" pTextarea formControlName="description" id="description"
                     placeholder="Enter product description" pSize="small" [autoResize]="true"></textarea>
-                @if (productsForm.get('description')?.errors && productsForm.get('description')?.touched) {
-                <li *ngIf="productsForm.get('description')?.errors?.['required']" class="text-[#DC2626] text-sm">
-                    Input is required.
-                </li>
-                <li *ngIf="productsForm.get('description')?.errors?.['minlength']" class="text-[#DC2626] text-sm">
-                    Input must be at least 10 characters long.
-                </li>
+                @let descriptionControl = productsForm.get('description');
+                @if (descriptionControl) {
+                <app-validation-product [control]="descriptionControl"></app-validation-product>
                 }
             </div>
             <div class="md:flex gap-2">
@@ -155,8 +151,8 @@
                 </div>
             </div>
             }
-            <!-- [disabled]="productsForm.invalid" -->
-            <button
+
+            <button [disabled]="productsForm.invalid"
                 class="bg-danger text-white w-full md:mt-10 mt-20 rounded-[10px] py-2.5 px-10 hover:bg-primary-dark hover:shadow-lg transition-all dark:bg-darkMode-secondary dark:hover:bg-secondary">
                 @if (productId) {Update Product}@else {Add Product}
             </button>
