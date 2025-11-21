@@ -34,9 +34,10 @@ export class AddEditProductComponent implements OnInit, OnDestroy {
   productsList: Product[] = [];
   categoryList: Category[] = [];
   occasionsList: Occasion[] = [];
-  subscriptionProducts: Subscription = new Subscription;
-  subscriptionCategories: Subscription = new Subscription;
-  subscriptionOccasions: Subscription = new Subscription;
+  subscription: Subscription[] = [];
+  // subscriptionProducts: Subscription = new Subscription;
+  // subscriptionCategories: Subscription = new Subscription;
+  // subscriptionOccasions: Subscription = new Subscription;
   coverFile!: File;
   imagesFile: File[] = [];
   // dialog
@@ -108,25 +109,31 @@ export class AddEditProductComponent implements OnInit, OnDestroy {
   }
 
   getAllProducts() {
-    this.subscriptionProducts = this._productsService.allProducts().subscribe({
-      next: (res) => {
-        this.productsList = res.products;
-      }
-    });
+    this.subscription.push(
+      this._productsService.allProducts().subscribe({
+        next: (res) => {
+          this.productsList = res.products;
+        }
+      })
+    )
   }
   getAllCategories() {
-    this.subscriptionCategories = this._productsService.allCategories().subscribe({
-      next: (res) => {
-        this.categoryList = res.categories;
-      }
-    });
+    this.subscription.push(
+      this._productsService.allCategories().subscribe({
+        next: (res) => {
+          this.categoryList = res.categories;
+        }
+      })
+    )
   }
   getAllOccasions() {
-    this.subscriptionOccasions = this._productsService.allOccasions().subscribe({
-      next: (res) => {
-        this.occasionsList = res.occasions;
-      }
-    });
+    this.subscription.push(
+      this._productsService.allOccasions().subscribe({
+        next: (res) => {
+          this.occasionsList = res.occasions;
+        }
+      })
+    )
   }
 
   productsForm = new FormGroup({
@@ -222,9 +229,10 @@ export class AddEditProductComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptionProducts.unsubscribe();
-    this.subscriptionCategories.unsubscribe();
-    this.subscriptionOccasions.unsubscribe();
+    this.subscription.forEach((sub)=>sub.unsubscribe());
+    // this.subscriptionProducts.unsubscribe();
+    // this.subscriptionCategories.unsubscribe();
+    // this.subscriptionOccasions.unsubscribe();
   }
 
 }

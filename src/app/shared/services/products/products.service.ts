@@ -30,11 +30,11 @@ export class ProductsService {
     return this._http.delete(`products/${id}`);
   }
 
-  addProduct(data: IAddProduct | any): Observable<IProducts> {
+  addProduct(data: IAddProduct |any): Observable<IProducts> {
     return this._http.post<IProducts>(`products`, data);
   }
 
-  updateProduct(id: string, data: IAddProduct | any): Observable<IProducts> {
+  updateProduct(id: string, data: IAddProduct |any): Observable<IProducts> {
     return this._http.put<IProducts>(`products/${id}`, data);
   }
 
