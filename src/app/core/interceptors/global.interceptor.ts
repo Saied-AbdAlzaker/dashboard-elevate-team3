@@ -14,7 +14,7 @@ export const globalInterceptor: HttpInterceptorFn = (req, next) => {
   const TokenAdmin = TOKEN.Admin;
 
   let PLATFORM = inject(PLATFORM_ID);
-  const normalUserEndpoints :string[]=[ApiEndPoint.LOW_STOCK_PRODUCTS,ApiEndPoint.STATISTICS_ORDERS,ApiEndPoint.TOP_SELLING_PRODUCTS];
+  /* const normalUserEndpoints :string[]=[ApiEndPoint.LOW_STOCK_PRODUCTS,ApiEndPoint.STATISTICS_ORDERS,ApiEndPoint.TOP_SELLING_PRODUCTS];
   console.log(req.url);
   if(normalUserEndpoints.includes(req.url)){
     req = req.clone({
@@ -23,9 +23,15 @@ export const globalInterceptor: HttpInterceptorFn = (req, next) => {
         Authorization: `Bearer ${TokenUser}`
       }
     });
-  }
-
-  if(req.method!=='GET')  {
+  } */
+if (req.url.includes('statistics')) {
+    req = req.clone({
+      url: `${baseUrl}${req.url}`,
+      setHeaders: {
+        Authorization: `Bearer ${TokenUser}`
+      }
+    });
+  } else  if(req.method!=='GET')  {
      req = req.clone({
       url: `${baseUrl}${req.url}`,
       setHeaders: {
@@ -33,6 +39,7 @@ export const globalInterceptor: HttpInterceptorFn = (req, next) => {
       }
     });
   }
+
 
   else if (isPlatformBrowser(PLATFORM)) {
     const token = localStorage.getItem('token') || '';

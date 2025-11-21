@@ -61,7 +61,6 @@ export class CategoriesComponent implements OnInit ,OnDestroy{
   getCategories() {
     this.categoriesSubscription = this._categoriesService.getCategories().subscribe({
       next:(res)=>{
-        console.log(res);
 
         this.categories = res.categories
 
@@ -95,7 +94,6 @@ export class CategoriesComponent implements OnInit ,OnDestroy{
             accept: () => {
                 this.deleteCategorySubscription = this._categoriesService.deleteCategory(id).subscribe({
                   next:(res)=>{
-                    console.log(res);
                       this.messageService.add({ severity: 'info', summary: 'Info', detail: res.message });
 
                   },error:(err)=> {
